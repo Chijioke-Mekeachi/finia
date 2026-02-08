@@ -1,0 +1,8 @@
+{
+  "name": "FinTrack Pro - AI Financial Secretary",
+  "description": "A professional financial management suite for organizations featuring automated P&L calculations, balance sheets, and an AI-powered financial secretary for deep data analysis.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera"
+  ]
+}
