@@ -218,7 +218,7 @@ const Auditing: React.FC = () => {
               Audit Mode
             </span>
           </div>
-          <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
             Excel Auditing
           </h2>
           <p className="text-slate-500 dark:text-slate-400 font-medium">

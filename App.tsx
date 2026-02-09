@@ -174,6 +174,8 @@ const App: React.FC = () => {
     setTransactions([]);
   };
 
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
   const exportData = () => {
     const dataStr =
       "data:text/json;charset=utf-8," +
@@ -186,9 +188,22 @@ const App: React.FC = () => {
     downloadAnchorNode.remove();
   };
 
-  const NavItem = ({ view, icon: Icon, label }: { view: AppView, icon: any, label: string }) => (
+  const NavItem = ({
+    view,
+    icon: Icon,
+    label,
+    expanded,
+  }: {
+    view: AppView;
+    icon: any;
+    label: string;
+    expanded?: boolean;
+  }) => (
     <button
-      onClick={() => setCurrentView(view)}
+      onClick={() => {
+        setCurrentView(view);
+        setMobileNavOpen(false);
+      }}
       className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
         currentView === view 
           ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20' 
@@ -196,7 +211,7 @@ const App: React.FC = () => {
       }`}
     >
       <Icon size={20} />
-      {isSidebarOpen && <span className="font-semibold text-sm">{label}</span>}
+      {(expanded ?? isSidebarOpen) && <span className="font-semibold text-sm">{label}</span>}
     </button>
   );
 
@@ -220,8 +235,104 @@ const App: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-[#FDFDFF] dark:bg-slate-950 transition-colors duration-300 overflow-hidden">
+      {/* Mobile sidebar drawer */}
+      {mobileNavOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <button
+            type="button"
+            aria-label="Close navigation"
+            className="absolute inset-0 bg-slate-950/40 backdrop-blur-[1px]"
+            onClick={() => setMobileNavOpen(false)}
+          />
+          <aside className="absolute inset-y-0 left-0 w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col print:hidden shadow-2xl">
+            <div className="p-6 flex items-center justify-between">
+              <div className="flex items-center space-x-3 text-blue-700">
+                <div className="bg-blue-700 p-2 rounded-lg text-white">
+                  <Briefcase size={20} />
+                </div>
+                <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white">
+                  FINTRACK<span className="text-blue-600">PRO</span>
+                </span>
+              </div>
+              <button
+                onClick={() => setMobileNavOpen(false)}
+                className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors text-slate-400"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <nav className="flex-1 px-6 space-y-1.5 overflow-y-auto">
+              <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4 px-4">
+                Operations
+              </p>
+              <NavItem view={AppView.DASHBOARD} icon={LayoutDashboard} label="Dashboard" expanded />
+              <NavItem view={AppView.TRANSACTIONS} icon={ArrowLeftRight} label="Cash Flow" expanded />
+
+              <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-8 mb-4 px-4">
+                Auditing
+              </p>
+              <NavItem view={AppView.AUDITING} icon={ShieldCheck} label="Excel Audit" expanded />
+              <NavItem view={AppView.BALANCE_SHEET} icon={BarChart3} label="Balance Sheet" expanded />
+              <NavItem view={AppView.REPORTS} icon={FileText} label="Monthly Reports" expanded />
+
+              <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-8 mb-4 px-4">
+                Intelligence
+              </p>
+              <NavItem view={AppView.GOALS} icon={Target} label="Goals" expanded />
+              <NavItem view={AppView.AI_SECRETARY} icon={Bot} label="AI Advisor" expanded />
+
+              <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-8 mb-4 px-4">
+                Billing
+              </p>
+              <NavItem view={AppView.SUBSCRIPTION} icon={CreditCard} label="Plan & Subscription" expanded />
+
+              {import.meta.env.DEV && (
+                <>
+                  <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-8 mb-4 px-4">
+                    Administration
+                  </p>
+                  <a
+                    href="/admin"
+                    className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
+                    onClick={() => setMobileNavOpen(false)}
+                  >
+                    <Users size={20} />
+                    <span className="font-semibold text-sm">Admin Console</span>
+                  </a>
+                </>
+              )}
+            </nav>
+
+            <div className="p-6 border-t border-slate-100 dark:border-slate-800 space-y-2">
+              <NavItem view={AppView.SETTINGS} icon={SettingsIcon} label="Settings" expanded />
+              <button
+                onClick={() => {
+                  exportData();
+                  setMobileNavOpen(false);
+                }}
+                className="w-full flex items-center space-x-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                <Download size={20} />
+                <span className="font-semibold text-sm">Offline Export</span>
+              </button>
+              <button
+                onClick={() => {
+                  logout();
+                  setMobileNavOpen(false);
+                }}
+                className="w-full flex items-center space-x-3 px-4 py-3 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-xl transition-all"
+              >
+                <LogOut size={20} />
+                <span className="font-semibold text-sm">End Session</span>
+              </button>
+            </div>
+          </aside>
+        </div>
+      )}
+
       {/* Sidebar */}
-      <aside className={`${isSidebarOpen ? 'w-72' : 'w-24'} bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 transition-all duration-300 flex flex-col z-20 print:hidden`}>
+      <aside className={`${isSidebarOpen ? 'w-72' : 'w-24'} hidden lg:flex bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 transition-all duration-300 flex-col z-20 print:hidden`}>
         <div className="p-8 flex items-center justify-between">
           <div className={`flex items-center space-x-3 text-blue-700 ${!isSidebarOpen && 'hidden'}`}>
             <div className="bg-blue-700 p-2 rounded-lg text-white">
@@ -279,8 +390,16 @@ const App: React.FC = () => {
       </aside>
 
       <main className="flex-1 flex flex-col overflow-hidden relative">
-        <header className="h-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 flex items-center justify-between px-10 print:hidden sticky top-0 z-10 transition-colors">
+        <header className="h-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 flex items-center justify-between px-4 sm:px-6 lg:px-10 print:hidden sticky top-0 z-10 transition-colors">
           <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={() => setMobileNavOpen(true)}
+              className="lg:hidden p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors text-slate-500 dark:text-slate-300"
+              aria-label="Open navigation"
+            >
+              <Menu size={20} />
+            </button>
             <div>
               <h2 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-0.5">{settings.companyName}</h2>
               <h1 className="text-xl font-black text-slate-900 dark:text-white capitalize tracking-tight">{currentView.replace('_', ' ').toLowerCase()}</h1>
@@ -312,7 +431,7 @@ const App: React.FC = () => {
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-10 bg-[#FDFDFF] dark:bg-slate-950 transition-colors scroll-smooth custom-scrollbar">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-10 bg-[#FDFDFF] dark:bg-slate-950 transition-colors scroll-smooth custom-scrollbar">
           {currentView === AppView.DASHBOARD && <Dashboard transactions={transactions} settings={settings} />}
           {currentView === AppView.TRANSACTIONS && (
             <TransactionList 

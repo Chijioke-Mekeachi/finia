@@ -80,11 +80,11 @@ Return ONLY JSON with this structure: { "date": "YYYY-MM-DD", "amount": number, 
           </button>
         </div>
 
-        <div className="p-10 text-center">
+        <div className="p-6 sm:p-10 text-center">
           {!image ? (
             <div 
               onClick={() => fileInputRef.current?.click()}
-              className="border-4 border-dashed border-slate-100 dark:border-slate-800 rounded-[32px] p-16 hover:border-blue-500/50 hover:bg-blue-50/30 dark:hover:bg-blue-500/5 transition-all cursor-pointer group"
+              className="border-4 border-dashed border-slate-100 dark:border-slate-800 rounded-[32px] p-8 sm:p-16 hover:border-blue-500/50 hover:bg-blue-50/30 dark:hover:bg-blue-500/5 transition-all cursor-pointer group"
             >
               <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                 <Upload size={32} className="text-slate-400 group-hover:text-blue-600" />
@@ -141,7 +141,7 @@ Return ONLY JSON with this structure: { "date": "YYYY-MM-DD", "amount": number, 
           )}
         </div>
         
-        <div className="px-10 pb-10 flex items-center justify-center gap-3 text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest text-center">
+        <div className="px-6 sm:px-10 pb-6 sm:pb-10 flex items-center justify-center gap-3 text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest text-center">
           <ShieldCheck size={14} className="text-emerald-500" />
           Secure Enterprise-Grade Vision Processing Active
         </div>

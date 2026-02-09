@@ -120,7 +120,7 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ transactions, setting
   return (
     <div className="max-w-6xl mx-auto space-y-10 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row items-center justify-between gap-6 print:hidden">
-        <div className="flex bg-slate-100 dark:bg-slate-900 p-1.5 rounded-2xl shadow-inner border border-slate-200 dark:border-slate-800">
+        <div className="flex flex-wrap bg-slate-100 dark:bg-slate-900 p-1.5 rounded-2xl shadow-inner border border-slate-200 dark:border-slate-800 w-full md:w-auto">
           {(['ALL', 'THIS_MONTH', 'THIS_YEAR'] as ReportPeriod[]).map(p => (
             <button
               key={p}
@@ -133,7 +133,7 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ transactions, setting
             </button>
           ))}
         </div>
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
           <button onClick={() => window.print()} className="flex items-center space-x-2 px-6 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 rounded-2xl font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm">
             <Printer size={18} />
             <span>Print</span>
@@ -149,14 +149,14 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ transactions, setting
         </div>
       </div>
 
-      <div ref={reportRef} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl rounded-[40px] overflow-hidden p-16 print:p-0 print:border-none print:shadow-none transition-colors">
-        <div className="flex justify-between items-start mb-16">
+      <div ref={reportRef} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl rounded-[40px] overflow-hidden p-6 sm:p-10 lg:p-16 print:p-0 print:border-none print:shadow-none transition-colors">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-6 mb-10 sm:mb-16">
           <div className="space-y-4">
             <div className="inline-flex items-center px-3 py-1 bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 rounded-full text-[10px] font-black tracking-widest uppercase">Institutional Statement</div>
-            <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">Financial<br/><span className="text-blue-600">Report</span></h1>
-            <p className="text-xl font-medium text-slate-500 dark:text-slate-400">{settings.companyName}</p>
+            <h1 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">Financial<br/><span className="text-blue-600">Report</span></h1>
+            <p className="text-base sm:text-xl font-medium text-slate-500 dark:text-slate-400">{settings.companyName}</p>
           </div>
-          <div className="text-right">
+          <div className="sm:text-right">
              <div className="bg-slate-900 dark:bg-slate-800 text-white px-4 py-2 rounded-xl text-[10px] font-black tracking-widest inline-block uppercase">Confidential Auditor's View</div>
              <p className="text-[10px] font-bold text-slate-400 mt-4 uppercase tracking-tighter">Generated {new Date().toLocaleDateString()}</p>
           </div>
@@ -188,24 +188,24 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ transactions, setting
            </div>
         </div>
 
-        <div className="border border-slate-100 dark:border-slate-800 rounded-[32px] overflow-hidden mb-16 bg-white dark:bg-slate-900">
+        <div className="border border-slate-100 dark:border-slate-800 rounded-[32px] overflow-x-auto mb-16 bg-white dark:bg-slate-900">
           <table className="w-full text-left">
             <thead>
               <tr className="bg-slate-50 dark:bg-slate-800 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                <th className="px-8 py-5">Date</th>
-                <th className="px-8 py-5">Entity / Beneficiary</th>
-                <th className="px-8 py-5 text-right">Amount ({settings.currency})</th>
+                <th className="px-4 sm:px-8 py-5">Date</th>
+                <th className="px-4 sm:px-8 py-5">Entity / Beneficiary</th>
+                <th className="px-4 sm:px-8 py-5 text-right">Amount ({settings.currency})</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
               {filteredTransactions.slice(0, 100).map(t => (
                 <tr key={t.id} className="text-sm hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
-                  <td className="px-8 py-5 text-slate-500 dark:text-slate-400 font-medium">{t.date}</td>
-                  <td className="px-8 py-5">
+                  <td className="px-4 sm:px-8 py-5 text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">{t.date}</td>
+                  <td className="px-4 sm:px-8 py-5">
                     <p className="font-black text-slate-900 dark:text-white leading-none">{t.entity}</p>
                     <p className="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-tight">{t.category}</p>
                   </td>
-                  <td className={`px-8 py-5 text-right font-black ${t.type === 'INCOME' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-white'}`}>
+                  <td className={`px-4 sm:px-8 py-5 text-right font-black whitespace-nowrap ${t.type === 'INCOME' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-white'}`}>
                     {t.type === 'INCOME' ? '+' : '-'}{t.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </td>
                 </tr>
@@ -214,7 +214,7 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ transactions, setting
           </table>
         </div>
 
-        <div className="mt-16 bg-slate-950 dark:bg-blue-600/5 border border-slate-900 dark:border-blue-500/10 rounded-[40px] p-12 relative overflow-hidden group">
+        <div className="mt-16 bg-slate-950 dark:bg-blue-600/5 border border-slate-900 dark:border-blue-500/10 rounded-[40px] p-6 sm:p-12 relative overflow-hidden group">
           <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
             <Sparkles size={80} className="text-blue-400" />
           </div>

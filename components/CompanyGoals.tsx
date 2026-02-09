@@ -223,7 +223,7 @@ const CompanyGoals: React.FC<CompanyGoalsProps> = ({ goals, defaultUnit, onCreat
 
       <div className="space-y-4">
         {visibleGoals.length === 0 ? (
-          <div className="bg-slate-50 dark:bg-slate-900/40 p-10 rounded-[32px] border border-slate-200 dark:border-slate-800 text-center">
+          <div className="bg-slate-50 dark:bg-slate-900/40 p-6 sm:p-10 rounded-[32px] border border-slate-200 dark:border-slate-800 text-center">
             <p className="text-sm font-bold text-slate-500 dark:text-slate-400">No goals yet. Add your first goal above.</p>
           </div>
         ) : (
@@ -395,4 +395,3 @@ const CompanyGoals: React.FC<CompanyGoalsProps> = ({ goals, defaultUnit, onCreat
 };
 
 export default CompanyGoals;
-

@@ -183,7 +183,7 @@ const Admin: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[40px] shadow-2xl overflow-hidden">
-        <div className="p-10 border-b border-slate-100 dark:border-slate-800 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div className="p-6 sm:p-10 border-b border-slate-100 dark:border-slate-800 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="flex items-center gap-5">
             <div className="w-14 h-14 rounded-2xl bg-slate-900 dark:bg-blue-600 text-white flex items-center justify-center shadow-lg">
               <Shield size={26} />
@@ -229,7 +229,7 @@ const Admin: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-10">
+        <div className="p-6 sm:p-10">
           {error && (
             <div className="mb-6 p-4 rounded-2xl bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-sm font-bold">
               {error}
@@ -329,22 +329,22 @@ const Admin: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="border border-slate-100 dark:border-slate-800 rounded-[32px] overflow-hidden">
-                  <div className="grid grid-cols-12 bg-slate-50 dark:bg-slate-800 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                    <div className="col-span-4 px-6 py-4">Email</div>
-                    <div className="col-span-3 px-6 py-4">Name</div>
-                    <div className="col-span-2 px-6 py-4">Plan</div>
-                    <div className="col-span-2 px-6 py-4">Password</div>
-                    <div className="col-span-1 px-6 py-4 text-right">Tx</div>
-                  </div>
-
-                  <div className="divide-y divide-slate-50 dark:divide-slate-800 max-h-[520px] overflow-y-auto custom-scrollbar">
-                    {filteredUsers.map((u) => (
-                      <button
-                        key={u.id}
-                        onClick={() => setSelectedUserId(u.id)}
-                        className={`w-full grid grid-cols-12 text-left px-0 py-0 hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors ${selectedUserId === u.id ? 'bg-blue-50/60 dark:bg-blue-500/10' : ''}`}
-                      >
+	                <div className="border border-slate-100 dark:border-slate-800 rounded-[32px] overflow-x-auto">
+	                  <div className="grid grid-cols-12 bg-slate-50 dark:bg-slate-800 text-[10px] font-black text-slate-400 uppercase tracking-widest min-w-[920px]">
+	                    <div className="col-span-4 px-6 py-4">Email</div>
+	                    <div className="col-span-3 px-6 py-4">Name</div>
+	                    <div className="col-span-2 px-6 py-4">Plan</div>
+	                    <div className="col-span-2 px-6 py-4">Password</div>
+	                    <div className="col-span-1 px-6 py-4 text-right">Tx</div>
+	                  </div>
+	
+	                  <div className="divide-y divide-slate-50 dark:divide-slate-800 max-h-[520px] overflow-y-auto custom-scrollbar min-w-[920px]">
+	                    {filteredUsers.map((u) => (
+	                      <button
+	                        key={u.id}
+	                        onClick={() => setSelectedUserId(u.id)}
+	                        className={`w-full grid grid-cols-12 text-left px-0 py-0 hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors ${selectedUserId === u.id ? 'bg-blue-50/60 dark:bg-blue-500/10' : ''} min-w-[920px]`}
+	                      >
                         <div className="col-span-4 px-6 py-4">
                           <div className="text-sm font-black text-slate-900 dark:text-white truncate">{u.email}</div>
                           <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate">{new Date(u.created_at).toLocaleString()}</div>
@@ -366,7 +366,7 @@ const Admin: React.FC = () => {
                     ))}
 
                     {!loading && filteredUsers.length === 0 && (
-                      <div className="p-10 text-center text-slate-500 dark:text-slate-400 font-bold">
+                      <div className="p-6 sm:p-10 text-center text-slate-500 dark:text-slate-400 font-bold">
                         No users found.
                       </div>
                     )}
@@ -509,26 +509,26 @@ const Admin: React.FC = () => {
                 </button>
               </div>
 
-              <div className="border border-slate-100 dark:border-slate-800 rounded-[32px] overflow-hidden">
-                <div className="grid grid-cols-12 bg-slate-50 dark:bg-slate-800 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                  <div className="col-span-2 px-6 py-4">Date</div>
-                  <div className="col-span-3 px-6 py-4">User</div>
-                  <div className="col-span-3 px-6 py-4">Entity</div>
-                  <div className="col-span-2 px-6 py-4">Category</div>
-                  <div className="col-span-1 px-6 py-4">Type</div>
-                  <div className="col-span-1 px-6 py-4 text-right">Amount</div>
-                </div>
-                <div className="divide-y divide-slate-50 dark:divide-slate-800 max-h-[620px] overflow-y-auto custom-scrollbar">
-                  {txRows.map((t: any) => (
-                    <button
-                      key={t.id}
+	              <div className="border border-slate-100 dark:border-slate-800 rounded-[32px] overflow-x-auto">
+	                <div className="grid grid-cols-12 bg-slate-50 dark:bg-slate-800 text-[10px] font-black text-slate-400 uppercase tracking-widest min-w-[980px]">
+	                  <div className="col-span-2 px-6 py-4">Date</div>
+	                  <div className="col-span-3 px-6 py-4">User</div>
+	                  <div className="col-span-3 px-6 py-4">Entity</div>
+	                  <div className="col-span-2 px-6 py-4">Category</div>
+	                  <div className="col-span-1 px-6 py-4">Type</div>
+	                  <div className="col-span-1 px-6 py-4 text-right">Amount</div>
+	                </div>
+	                <div className="divide-y divide-slate-50 dark:divide-slate-800 max-h-[620px] overflow-y-auto custom-scrollbar min-w-[980px]">
+	                  {txRows.map((t: any) => (
+	                    <button
+	                      key={t.id}
                       onClick={() => {
                         setTab('USERS');
                         setSelectedUserId(t.user_id);
                       }}
-                      className="w-full grid grid-cols-12 text-left hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors"
-                      title="Click to open user details"
-                    >
+	                      className="w-full grid grid-cols-12 text-left hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors min-w-[980px]"
+	                      title="Click to open user details"
+	                    >
                       <div className="col-span-2 px-6 py-4 text-sm font-bold text-slate-700 dark:text-slate-200">{String(t.date)}</div>
                       <div className="col-span-3 px-6 py-4">
                         <div className="text-sm font-black text-slate-900 dark:text-white truncate">{t.user_email}</div>
@@ -551,7 +551,7 @@ const Admin: React.FC = () => {
                   ))}
 
                   {!loading && txRows.length === 0 && (
-                    <div className="p-10 text-center text-slate-500 dark:text-slate-400 font-bold">
+                    <div className="p-6 sm:p-10 text-center text-slate-500 dark:text-slate-400 font-bold">
                       No transactions found. Click “Apply Filters”.
                     </div>
                   )}

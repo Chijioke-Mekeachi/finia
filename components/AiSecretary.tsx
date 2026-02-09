@@ -894,7 +894,7 @@ If no transaction should be created, set action to "respond" and omit "transacti
         </div>
       )}
 
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-10 space-y-10 bg-slate-50/40 dark:bg-slate-950/40 custom-scrollbar">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-10 space-y-6 sm:space-y-10 bg-slate-50/40 dark:bg-slate-950/40 custom-scrollbar">
         {loadingHistory && (
           <div className="flex justify-start">
             <div className="flex items-center space-x-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-8 py-4 rounded-3xl shadow-xl">
@@ -957,14 +957,14 @@ If no transaction should be created, set action to "respond" and omit "transacti
         )}
       </div>
 
-      <div className="p-8 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800">
+      <div className="p-4 sm:p-6 lg:p-8 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800">
         <form onSubmit={handleSend} className="relative group">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="e.g. 'Record a $500 software subscription expense for AWS today'"
-            className="w-full pl-8 pr-20 py-6 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[28px] focus:outline-none focus:ring-4 focus:ring-blue-500/10 dark:focus:bg-slate-800 transition-all font-medium text-lg placeholder:text-slate-400 dark:text-white"
+            className="w-full pl-5 sm:pl-8 pr-16 sm:pr-20 py-4 sm:py-6 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[28px] focus:outline-none focus:ring-4 focus:ring-blue-500/10 dark:focus:bg-slate-800 transition-all font-medium text-base sm:text-lg placeholder:text-slate-400 dark:text-white"
           />
           <button
             type="submit"
